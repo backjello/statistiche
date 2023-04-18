@@ -1,0 +1,24 @@
+<div class="row no-gutters">
+    <div class="col-2">
+        LOGO
+    </div>
+    <div class="col-10 distanzia-equamente">
+        <div class="" routerLink="/home"> <!-- nome del componente HOME -->
+            HOME
+        </div>
+        <div *ngFor="let coast of ['east','west']" [routerLink]="'/coast/'+coast" >
+            {{coast}}
+        </div>
+
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" routerLink="/comp1">Comp1</a>
+                <a class="dropdown-item" routerLink="/comp2">Comp2</a>
+            </div>
+        </div>
+    </div>
+</div>

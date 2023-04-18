@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root{
+    --primary:#e63946;
+    --secondary:#f1faee;
+    --warning:#ffb703;
+    --success:#457b9d;
+    --info:#a8dadc;
+}
+.bg-primary{
+    background-color: var(--primary) !important;
+    color: var(--secondary);
+}
+.center-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.posizione-1{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.posizione-2{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.distanzia-equamente{
+    display: flex;
+    justify-content: space-around;
+}

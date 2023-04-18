@@ -1,0 +1,8 @@
+.footer{
+    height: 50px;
+    padding: 15px;
+    /* white-space: pre; non usare */
+}
+.footer a{
+    color: var(--secondary);
+}
