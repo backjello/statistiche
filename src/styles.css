@@ -1,4 +1,4 @@
-html, body { height: 100%; }
+html, body { height: 100%; background-color: var(--dark);color:var(--secondary) }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root{
@@ -7,6 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --warning:#ffb703;
     --success:#457b9d;
     --info:#a8dadc;
+    --dark:rgb(45, 45, 45);
 }
 .bg-primary{
     background-color: var(--primary) !important;
