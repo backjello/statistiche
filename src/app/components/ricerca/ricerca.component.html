@@ -1,0 +1,23 @@
+<div>
+    <input type="text" [(ngModel)]="ricerca">
+    <button class="btn btn-secondary" (click)="cerca()">
+        Cerca
+    </button>
+    <div class="row no-gutters px-2" *ngIf="datiCitta.length > 0">
+        <div class="col-2">Stato</div>
+        <div class="col-4">Nome</div>
+        <div class="col-3">Regione</div>
+        <div class="col-3">Comune</div>
+        <hr class="col-12 bg-primary">
+        <ng-container *ngFor="let citta of datiCitta">
+            <div class="col-2">
+                <i class="flag-icon flag-icon-squared" 
+                    [ngClass]=" 'flag-icon-'+citta.country_code.toLowerCase()" ></i>
+                {{citta.country}}
+            </div>
+            <div class="col-4" (click)="cittaScelta(citta)">{{citta.name}}</div>
+            <div class="col-3">{{citta.admin1}}</div>
+            <div class="col-3">{{citta.admin3}}</div>
+        </ng-container>
+    </div>
+</div>

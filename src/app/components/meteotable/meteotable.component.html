@@ -1,7 +1,26 @@
 <div >
+    <app-ricerca (cambioCitta)="getDati($event)" ></app-ricerca>
+    
     <h3 class="text-center" >
-        <button *ngFor="let data of dateDisponibili" class="btn btn-primary">
-            {{ data | date:"dd/MM" }}
+        <button *ngFor="let data of dateDisponibili;let i = index" 
+            [ngClass]="giornoMostrato == i ? 'btn-info':'btn-primary'"
+            (click)="preparaDati(i)" class="btn">
+            <b>{{ data | date:"dd/MM" }} </b>
+            <br>
+            <span style="font-size: 2rem;text-align: center;width: 100%;">
+                <i class="bi" [ngClass]="codeService.getIcon(meteoGiornaliero.weathercode[i])"></i>
+            </span>
+            <br>
+            <span [ngStyle]="{color:codeService.getTermometro(meteoGiornaliero.temperature_2m_min[i]).colore}">
+                <i class="bi" 
+                    [ngClass]="codeService.getTermometro(meteoGiornaliero.temperature_2m_min[i]).icona"></i>
+                {{ meteoGiornaliero.temperature_2m_min[i] }}
+            </span>
+            <span [ngStyle]="{color:codeService.getTermometro(meteoGiornaliero.temperature_2m_max[i]).colore}">
+                <i class="bi" 
+                    [ngClass]="codeService.getTermometro(meteoGiornaliero.temperature_2m_max[i]).icona"></i>
+                {{ meteoGiornaliero.temperature_2m_max[i] }}
+            </span>
         </button>
     </h3>
     <table *ngIf="datiTabella.length > 0" mat-table [dataSource]="datiTabella">

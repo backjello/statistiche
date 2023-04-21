@@ -18,6 +18,7 @@ body {
     --info: #a8dadc;
     --dark: rgb(45, 45, 45);
     --altezza-footer: 50px;
+    --primary-hover:#265878;
 }
 
 .bg-primary {
@@ -30,8 +31,8 @@ body {
     border-color: var(--primary);
 }
 .btn-primary:hover{
-    background-color: var(--primary);
-    border-color: var(--primary);
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
 }
 
 .center-center {
