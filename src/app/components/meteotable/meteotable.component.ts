@@ -20,6 +20,8 @@ export class MeteotableComponent {
   colonneMostrate:string[] = ['ora','meteo','temperatura']
   datiTabella: SingolaPrevisione[] =[] 
 
+  dateDisponibili:string[]=[]
+
   constructor(private api:ApiService, public codeService:CodetotxtService) { 
     this.api.getMeteo().subscribe((res)=>{
       this.meteo7giorni = res.hourly // salvo il meteo di tutti e 7 i giorni (lunghezza di 168 elementi (24*7))
@@ -28,7 +30,11 @@ export class MeteotableComponent {
       this.meteoCorrente.time = this.meteo7giorni.time.slice(0,24)
       this.meteoCorrente.weathercode = this.meteo7giorni.weathercode.slice(0,24)
       this.preparaDati()
-      console.log(this.meteoCorrente)
+      for (let index = 0; index < 168; index = index + 24) {
+        this.dateDisponibili.push(
+          this.meteo7giorni.time[index]
+        )
+      }
     })
   }
   preparaDati(){ // {a:[...],b[...],c[....]} -> [{a:'',b:1,c:''},...]

@@ -1,6 +1,8 @@
 <div >
-    <h3 class="text-center">
-        {{ meteoCorrente.time[0] | date:"dd/MM" }}
+    <h3 class="text-center" >
+        <button *ngFor="let data of dateDisponibili" class="btn btn-primary">
+            {{ data | date:"dd/MM" }}
+        </button>
     </h3>
     <table *ngIf="datiTabella.length > 0" mat-table [dataSource]="datiTabella">
         <ng-container matColumnDef="ora">
