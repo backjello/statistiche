@@ -136,10 +136,11 @@ export class CodetotxtService {
 
   getTermometro(temperatura: number): { colore: string, icona: string } { // 
 
-    const RED =  Math.pow(temperatura/35, 2)*255 
-    const BLUE = Math.pow((35-temperatura/35),2)*255
+    const RED =  temperatura > 15 ? temperatura/40*255+100 : 0
+    const GREEN =  (40-temperatura)/40*128
+    const BLUE =  temperatura < 15 ? Math.pow((40-temperatura)/40,2)*255 : 0
 
-    const COLORE = "rgb("+RED+",0,"+BLUE+")"
+    const COLORE = "rgb("+RED+","+GREEN+","+BLUE+")"
 
     if (temperatura >= 35)
       return { colore: COLORE, icona: 'bi-thermometer-sun' }
