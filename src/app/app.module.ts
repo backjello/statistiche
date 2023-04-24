@@ -11,6 +11,12 @@ import { MeteotableComponent } from './components/meteotable/meteotable.componen
 import { MatTableModule} from '@angular/material/table';
 import { RicercaComponent } from './components/ricerca/ricerca.component'
 import { FormsModule } from '@angular/forms';
+import { GraficoclimaComponent } from './components/graficoclima/graficoclima.component';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatInputModule} from '@angular/material/input'
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core'
 
 @NgModule({
   declarations: [
@@ -18,15 +24,21 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     MeteotableComponent,
-    RicercaComponent
+    RicercaComponent,
+    GraficoclimaComponent
   ],
   imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
     FormsModule,
+    MatDatepickerModule,
     BrowserModule,
     MatTableModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

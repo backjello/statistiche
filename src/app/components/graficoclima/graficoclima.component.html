@@ -1,0 +1,34 @@
+<app-ricerca (cambioCitta)="setCitta($event)" ></app-ricerca>
+
+<div *ngIf="citta">
+    <span>La citta che hai scelto è:</span>
+    <span> {{citta.name}} </span>
+</div>
+
+<form [formGroup]="form" (submit)="submit()">
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Data Inizio</mat-label>
+        <input matInput [matDatepicker]="pickerInizio" formControlName="dataInizio">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerInizio"></mat-datepicker-toggle>
+        <mat-datepicker startView="multi-year" #pickerInizio></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Data Fine</mat-label>
+        <input matInput [matDatepicker]="pickerFine" formControlName="dataFine">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFine"></mat-datepicker-toggle>
+        <mat-datepicker startView="multi-year" #pickerFine></mat-datepicker>
+    </mat-form-field>
+
+    <button class="btn btn-secondary" type="submit" 
+        [disabled]="!citta || form.invalid || controllaDate()" >
+            Vai
+    </button>
+
+</form>
+
+<canvas id="areaGrafico"></canvas>
+

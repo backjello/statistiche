@@ -1,0 +1,7 @@
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex *{
+    color: white;
+}    
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+    background-color: rgb(56, 56, 56);
+}
