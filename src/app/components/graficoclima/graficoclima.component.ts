@@ -3,11 +3,41 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart } from 'chart.js/auto';
 import { Citta } from 'src/app/interfaces/citta';
 import { ApiService } from 'src/app/services/api.service';
+import { ViewEncapsulation} from '@angular/core';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDatepicker} from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import {default as _rollupMoment, Moment} from 'moment';
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY',
+  },
+  display: {
+    dateInput: 'YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-graficoclima',
   templateUrl: './graficoclima.component.html',
-  styleUrls: ['./graficoclima.component.css']
+  styleUrls: ['./graficoclima.component.css'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GraficoclimaComponent {
 
@@ -16,12 +46,21 @@ export class GraficoclimaComponent {
   temperature: number[] = [] // temperature dei vari giorni
   giorni: string[] = [] // date dei giorni
   grafico!:Chart
-
   constructor(private fb: FormBuilder, private api: ApiService) {
     this.form = fb.group({
-      dataInizio: ["", Validators.required],
-      dataFine: ["", Validators.required]
+      dataInizio: [moment(), Validators.required],
+      dataFine: [moment(), Validators.required]
     })
+  }
+
+  setYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, inizioOrFine:'dataInizio'|'dataFine') {
+    console.log('setYear');
+    const annoDaModificare = this.form.controls[inizioOrFine]
+    const ctrlValue = annoDaModificare.value;
+    // ctrlValue?.month(normalizedMonthAndYear.month());
+    ctrlValue?.year(normalizedMonthAndYear.year());
+    annoDaModificare.setValue(ctrlValue);
+    datepicker.close();
   }
 
   setCitta(c: Citta) {
@@ -31,7 +70,6 @@ export class GraficoclimaComponent {
   submit() {
     var DATA_INIZIO: Date = this.form.value.dataInizio
     var DATA_FINE: Date = this.form.value.dataFine
-
     // prendo solamente i primi 10 caratteri
     var inizio = DATA_INIZIO.toISOString().slice(0, 10)
     var fine = DATA_FINE.toISOString().slice(0, 10)
@@ -89,8 +127,8 @@ export class GraficoclimaComponent {
     }
   }
   controllaDate(): boolean {
-    const INIZIO: Date = this.form.value.dataInizio
-    const FINE: Date = this.form.value.dataFine
+    const INIZIO: Date = new Date(this.form.value.dataInizio)
+    const FINE: Date = new Date(this.form.value.dataFine)
     // se la data di inizio è maggiore della fine blocco l'esecuzione
     return INIZIO.getTime() > FINE.getTime()
   }

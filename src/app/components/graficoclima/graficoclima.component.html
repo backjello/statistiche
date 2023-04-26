@@ -10,17 +10,22 @@
     <mat-form-field appearance="fill">
         <mat-label>Data Inizio</mat-label>
         <input matInput [matDatepicker]="pickerInizio" formControlName="dataInizio">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>ANNO</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerInizio"></mat-datepicker-toggle>
-        <mat-datepicker startView="multi-year" #pickerInizio></mat-datepicker>
+        <mat-datepicker startView="multi-year" #pickerInizio
+            (yearSelected)="setYear($event, pickerInizio,'dataInizio')"
+        ></mat-datepicker>
+        <!--  -->
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Data Fine</mat-label>
         <input matInput [matDatepicker]="pickerFine" formControlName="dataFine">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>ANNO</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerFine"></mat-datepicker-toggle>
-        <mat-datepicker startView="multi-year" #pickerFine></mat-datepicker>
+        <mat-datepicker startView="multi-year" #pickerFine
+            (yearSelected)="setYear($event, pickerFine,'dataFine')"
+        ></mat-datepicker>
     </mat-form-field>
 
     <button class="btn btn-secondary" type="submit" 
