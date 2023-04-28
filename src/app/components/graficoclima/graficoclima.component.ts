@@ -68,13 +68,20 @@ export class GraficoclimaComponent {
   }
 
   submit() {
-    var DATA_INIZIO: Date = this.form.value.dataInizio
-    var DATA_FINE: Date = this.form.value.dataFine
+    var DATA_INIZIO: Date =  new Date( this.form.value.dataInizio )
+    var DATA_FINE: Date = new Date( this.form.value.dataFine )
+    // DATA_INIZIO.setMonth(0)
+    // DATA_INIZIO.setDate(1)
+    // DATA_FINE.setMonth(11)
+    // DATA_FINE.setDate(31)
+    // 1° metodo con Date / 2° metodo con string
     // prendo solamente i primi 10 caratteri
-    var inizio = DATA_INIZIO.toISOString().slice(0, 10)
-    var fine = DATA_FINE.toISOString().slice(0, 10)
+    var inizio = DATA_INIZIO.toISOString().slice(0, 4) // prediamo solamente l'anno
+    var fine = DATA_FINE.toISOString().slice(0, 4)
+    inizio = inizio + "-01-01"
+    fine = fine + "-12-31"
     console.log('stringa', inizio, fine)
-    // AAAA-MM-DD
+    // AAAA-MM-DD // AAAA-01-01 / AAAA-12-31
 
     this.api.getGrafico(
       this.citta.latitude,
@@ -94,19 +101,26 @@ export class GraficoclimaComponent {
     // [01-01-1990... 01-01-2000] -> [1990,2000]
     const MEDIE:number[] = []
     const ANNI:string[] = []
-    for (let i = 0; i < this.temperature.length / 365; i++) {
-      const INDICE_INIZIO = i * 365
-      const INDICE_FINE = INDICE_INIZIO + 365
+    var nAnniBisestili = 0
+    var giorniDiTroppo = this.temperature.length%365 // n giorni di troppo
+    for (let i = 0; i < ((this.temperature.length - giorniDiTroppo) / 365); i++) {
+      const INDICE_INIZIO = i * 365 + nAnniBisestili
+      var anno: string | number = this.giorni[INDICE_INIZIO] // AAAA-MM-DD
+      anno = anno.slice(0,4)
+      anno = parseInt(anno)
+      var giorniAnno = 365
+      if( anno%4 == 0 ){ //anno bisestile
+        giorniAnno ++ // l'anno ha 366 giorni
+        nAnniBisestili ++ // aumento il numero di anni bisestili trovati
+      } 
+      const INDICE_FINE = INDICE_INIZIO + giorniAnno
       var somma = 0
       for (let j = INDICE_INIZIO; j < INDICE_FINE; j++) {
         somma = somma + this.temperature[j]
       }
-      var media = somma / 365
+      var media = somma / giorniAnno
       MEDIE.push(media)
-
-      var anno = this.giorni[INDICE_INIZIO] // 01-01-1990 -> 1990
-      anno = anno.slice(0,4) // se no indice finale si va fino alla fine
-      ANNI.push(anno)
+      ANNI.push(anno.toString())
     }
 
     const DATA = {

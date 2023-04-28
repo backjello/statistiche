@@ -16,7 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatInputModule} from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core'
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatapickerComponent } from './components/datapicker/datapicker.component'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     FooterComponent,
     MeteotableComponent,
     RicercaComponent,
-    GraficoclimaComponent
+    GraficoclimaComponent,
+    DatapickerComponent
   ],
   imports: [
     MatFormFieldModule,
